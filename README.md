@@ -35,12 +35,6 @@ This package makes use of [Laravels package auto-discovery mechanism](https://me
 - `php artisan make:requirement {stage} {requirement_name}` - generate new requirement file for specified stage(before_migrate, after_migrate, before_seed, after_seed)
 - `php artisan requirement:run {stage} {?requirement_name}` - run requirements for specified stage. Requirement name can be passed as a second param to run only that requirement.
 
-```bash
-php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config
-```
-
-You can change requirements files directory or disable this feature using the requirement.php config file.
-
 ## License
 
 The Laravel Release Requirements Auto Launcher is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
