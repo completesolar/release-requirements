@@ -29,10 +29,8 @@
         "test": "phpunit"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.8",
-        "fakerphp/faker": "^1.9.1",
-        "mockery/mockery": "1.5.0",
-        "phpunit/phpcov": "^8.2",
-        "phpunit/phpunit": "^9.0"
+        "fakerphp/faker": "^1.23",
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^10.0"
     }
 }

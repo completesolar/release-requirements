@@ -16,6 +16,7 @@ class Stage
 
     public const LIST = [
         self::BEFORE_MIGRATE,
+        self::AFTER_MIGRATE,
         self::BEFORE_SEED,
         self::AFTER_SEED,
     ];

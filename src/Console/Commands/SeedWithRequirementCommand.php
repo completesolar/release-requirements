@@ -15,13 +15,19 @@ class SeedWithRequirementCommand extends SeedCommand
     {
         $runner = $this->getRequirementRunner();
 
-        if (
-            $runner->run(Stage::BEFORE_SEED) === self::FAILURE
-            || parent::handle() === self::FAILURE
-        ) {
+        if ($runner->run(Stage::BEFORE_SEED) === self::FAILURE) {
+            return self::FAILURE;
+        }
+
+        if ($this->runSeeds() === self::FAILURE) {
             return self::FAILURE;
         }
 
         return $runner->run(Stage::AFTER_SEED);
+    }
+
+    private function runSeeds(): int
+    {
+        return parent::handle();
     }
 }

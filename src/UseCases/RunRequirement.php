@@ -4,32 +4,39 @@ declare(strict_types=1);
 
 namespace CompleteSolar\ReleaseRequirement\UseCases;
 
-use App;
-use Exception;
+use CompleteSolar\ReleaseRequirement\Exceptions\UndefinedRequirementTypeException;
+use CompleteSolar\ReleaseRequirement\Repositories\RequirementRepository;
+use CompleteSolar\ReleaseRequirement\PathTrait;
 use CompleteSolar\ReleaseRequirement\AbstractRequirement;
-use CompleteSolar\ReleaseRequirement\Console\Commands\RunnerTrait;
-use CompleteSolar\ReleaseRequirement\Models\Requirement;
+use Illuminate\Config\Repository;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
+use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Command\Command;
 
 class RunRequirement
 {
-    use RunnerTrait;
+    use PathTrait;
 
     private string $stage;
 
+    private readonly Filesystem $filesystem;
+
+    private readonly Repository $config;
+
     public function __construct(
-        private readonly Filesystem $filesystem,
-        private readonly OutputStyle $output
+        private readonly Application $app,
+        private readonly OutputStyle $output,
+        private readonly RequirementRepository $requirementRepository
     ) {
+        $this->filesystem = $this->app->get('filesystem');
+        $this->config = $this->app->get('config');
     }
 
     public function run(string $stage, ?string $name = null): int
     {
         $this->setStage($stage);
-        $path = config('requirement.path') . "/$this->stage";
+        $path = $this->config->get('requirement.path') . "/$this->stage";
 
         if ($name) {
             $path .= "/$name.php";
@@ -39,26 +46,21 @@ class RunRequirement
 
                 return Command::FAILURE;
             }
-        }
-
-        if (!$this->filesystem->exists($path) || $this->filesystem->isEmptyDirectory(dirname($path))) {
+        } elseif (!$this->filesystem->exists($path) || $this->filesystem->isEmptyDirectory($path)) {
             $this->output->info("No $this->stage requirements found. Skipped.");
 
             return Command::SUCCESS;
         }
 
-        $requirements = $this->pendingRequirements(
-            $this->getRequirementFiles($path),
-            $this->getRanRequirements()
-        );
+        $pendingRequirements = $this->requirementRepository->getPendingRequirements($this->stage, $path);
 
-        if (empty($requirements)) {
+        if (empty($pendingRequirements)) {
             $this->output->info("All $this->stage requirements are up to date. Skipped.");
 
             return Command::SUCCESS;
         }
 
-        $this->runPending($requirements, [
+        $this->runPending($pendingRequirements, [
             'output' => $this->output,
         ]);
 
@@ -76,50 +78,17 @@ class RunRequirement
             $requirement = $this->filesystem->getRequire($filePath, $data);
 
             if (!$requirement instanceof AbstractRequirement) {
-                throw new Exception("File($filePath) must return instance of AbstractRequirement!");
+                throw new UndefinedRequirementTypeException($filePath);
             }
 
             $name = $this->getRequirementName($filePath);
 
-            $this->output->info("Running $name requirement");
+            $this->output->info("Running $name requirement:");
 
-            App::call([$requirement, 'run']);
-            Requirement::create([
-                'stage' => $this->stage,
-                'name' => $name,
-            ]);
+            $this->app->call([$requirement, 'run']);
+            $this->requirementRepository->addRequirementToRan($this->stage, $name);
 
             $this->output->success("$name - done.");
         }
-    }
-
-    private function getRanRequirements(): array
-    {
-        return Requirement::where('stage', $this->stage)->pluck('name')->toArray();
-    }
-
-    private function getRequirementFiles(string $path)
-    {
-        return Collection::make($path)->flatMap(function ($path) {
-            return str_ends_with($path, '.php') ? [$path] : $this->filesystem->glob($path . '/*_*.php');
-        })->filter()->values()->keyBy(function ($file) {
-            return $this->getRequirementName($file);
-        })->sortBy(function ($file, $key) {
-            return $key;
-        })->all();
-    }
-
-    private function pendingRequirements($files, $ran)
-    {
-        return Collection::make($files)
-            ->reject(function ($file) use ($ran) {
-                return in_array($this->getRequirementName($file), $ran);
-            })->values()
-            ->all();
-    }
-
-    private function getRequirementName(string $path): string
-    {
-        return str_replace('.php', '', basename($path));
     }
 }

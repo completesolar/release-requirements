@@ -13,10 +13,21 @@ class MigrateWithRequirementCommand extends MigrateCommand
 
     public function handle(): int
     {
-        if ($this->getRequirementRunner()->run(Stage::BEFORE_MIGRATE) === self::FAILURE) {
+        $runner = $this->getRequirementRunner();
+
+        if ($runner->run(Stage::BEFORE_MIGRATE) === self::FAILURE) {
             return self::FAILURE;
         }
 
+        if ($this->runMigrations() === self::FAILURE) {
+            return self::FAILURE;
+        }
+
+        return $runner->run(Stage::AFTER_MIGRATE);
+    }
+
+    private function runMigrations(): int
+    {
         return parent::handle();
     }
 }

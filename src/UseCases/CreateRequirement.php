@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace CompleteSolar\ReleaseRequirement\UseCases;
 
-use CompleteSolar\ReleaseRequirement\Console\Commands\RunnerTrait;
+use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 
+/**
+ * @see \CompleteSolar\ReleaseRequirement\Tests\UseCases\CreateRequirementTest
+ */
 class CreateRequirement
 {
-    use RunnerTrait;
-
-    public function __construct(private readonly Filesystem $files)
+    public function __construct(private readonly Filesystem $files, private readonly Repository $config)
     {
     }
 
@@ -37,7 +38,7 @@ class CreateRequirement
     private function getFullFilePath(string $stage, string $name): string
     {
         return implode('/', [
-            config('requirement.path'),
+            $this->config->get('requirement.path'),
             $stage,
             date('Y_m_d_His') . "_$name.php",
         ]);
