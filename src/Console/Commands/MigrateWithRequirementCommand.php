@@ -31,6 +31,7 @@ class MigrateWithRequirementCommand extends MigrateCommand
 
     protected function runMigrations(): int
     {
+        /** @codeCoverageIgnore */
         return parent::handle();
     }
 }

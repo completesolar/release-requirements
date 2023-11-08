@@ -31,6 +31,7 @@ class SeedWithRequirementCommand extends SeedCommand
 
     protected function runSeeds(): int
     {
+        /** @codeCoverageIgnore */
         return parent::handle();
     }
 }
