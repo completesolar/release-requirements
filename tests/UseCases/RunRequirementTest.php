@@ -210,6 +210,7 @@ final class RunRequirementTest extends BaseTestCase
 
     /**
      * @covers ::run
+     * @covers ::runPending
      * @covers \CompleteSolar\ReleaseRequirement\Exceptions\UndefinedRequirementTypeException::__construct
      */
     public function testWrongRequirementFileReturnType(): void

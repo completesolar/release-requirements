@@ -19,6 +19,7 @@ final class RequirementRepositoryTest extends BaseTestCase
     use MockFilesystem;
 
     /**
+     * @covers ::__construct
      * @covers ::getPendingRequirements
      * @covers ::getRanRequirements
      * @covers ::getRequirementFiles
@@ -44,6 +45,7 @@ final class RequirementRepositoryTest extends BaseTestCase
     }
 
     /**
+     * @covers ::__construct
      * @covers ::getPendingRequirements
      * @covers ::getRanRequirements
      * @covers ::getRequirementFiles
