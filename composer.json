@@ -33,5 +33,6 @@
         "mockery/mockery": "^1.6",
         "phpunit/phpunit": "^10.0"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
