@@ -32,5 +32,6 @@
         "fakerphp/faker": "^1.23",
         "mockery/mockery": "^1.6",
         "phpunit/phpunit": "^10.0"
-    }
+    },
+    "minimum-stability": "stable"
 }
