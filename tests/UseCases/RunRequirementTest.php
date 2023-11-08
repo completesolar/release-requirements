@@ -88,13 +88,13 @@ class RunRequirementTest extends BaseTestCase
             ->method('addRequirementToRan')
             ->with($stage, $name);
 
-        $app = $this->getApplicationMock($filesystem);
+        $app = $this->getApplicationMock();
 
         $app->expects($this->once())
             ->method('call')
             ->with([$requirementObject, 'run']);
 
-        $useCase = new RunRequirement($app, $output, $repository);
+        $useCase = new RunRequirement($app, $filesystem, $output, $repository);
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage, $withName ? $name : null));
     }
@@ -112,7 +112,7 @@ class RunRequirementTest extends BaseTestCase
             ->method('error')
             ->with("No $stage/$name requirement found!");
 
-        $useCase = new RunRequirement($this->getApplicationMock(), $output, $this->getRepositoryMock());
+        $useCase = new RunRequirement($this->getApplicationMock(), $this->getFilesystemMock(), $output, $this->getRepositoryMock());
 
         $this->assertSame(Command::FAILURE, $useCase->run($stage, $name));
     }
@@ -135,7 +135,7 @@ class RunRequirementTest extends BaseTestCase
             ->with("/$stage")
             ->willReturn(false);
 
-        $useCase = new RunRequirement($this->getApplicationMock($filesystem), $output, $this->getRepositoryMock());
+        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $this->getRepositoryMock());
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage));
     }
@@ -163,7 +163,7 @@ class RunRequirementTest extends BaseTestCase
             ->with($path)
             ->willReturn(true);
 
-        $useCase = new RunRequirement($this->getApplicationMock($filesystem), $output, $this->getRepositoryMock());
+        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $this->getRepositoryMock());
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage));
     }
@@ -197,7 +197,7 @@ class RunRequirementTest extends BaseTestCase
             ->with($stage, $path)
             ->willReturn([]);
 
-        $useCase = new RunRequirement($this->getApplicationMock($filesystem), $output, $repository);
+        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $repository);
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage));
     }
@@ -231,7 +231,7 @@ class RunRequirementTest extends BaseTestCase
 
         $this->expectException(UndefinedRequirementTypeException::class);
 
-        $useCase = new RunRequirement($this->getApplicationMock($filesystem), $output, $repository);
+        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $repository);
 
         $useCase->run($stage);
     }

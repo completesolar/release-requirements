@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CompleteSolar\ReleaseRequirement;
 
-use CompleteSolar\ReleaseRequirement\Console\Commands\CreateRequirementsCommand;
+use CompleteSolar\ReleaseRequirement\Console\Commands\CreateRequirementCommand;
 use CompleteSolar\ReleaseRequirement\Console\Commands\MigrateWithRequirementCommand;
 use CompleteSolar\ReleaseRequirement\Console\Commands\RunRequirementsCommand;
 use CompleteSolar\ReleaseRequirement\Console\Commands\SeedWithRequirementCommand;
@@ -29,7 +29,7 @@ class ReleaseRequirementProvider extends ServiceProvider
         );
 
         $this->commands([
-            CreateRequirementsCommand::class,
+            CreateRequirementCommand::class,
             RunRequirementsCommand::class,
         ]);
     }

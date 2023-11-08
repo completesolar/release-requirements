@@ -7,6 +7,9 @@ namespace CompleteSolar\ReleaseRequirement\Console\Commands;
 use CompleteSolar\ReleaseRequirement\Stage;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 
+/**
+ * @see \CompleteSolar\ReleaseRequirement\Tests\Console\Commands\MigrateWithRequirementCommandTest
+ */
 class MigrateWithRequirementCommand extends MigrateCommand
 {
     use RunnerTrait;
@@ -26,7 +29,7 @@ class MigrateWithRequirementCommand extends MigrateCommand
         return $runner->run(Stage::AFTER_MIGRATE);
     }
 
-    private function runMigrations(): int
+    protected function runMigrations(): int
     {
         return parent::handle();
     }

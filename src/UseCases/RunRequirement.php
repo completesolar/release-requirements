@@ -20,16 +20,14 @@ class RunRequirement
 
     private string $stage;
 
-    private readonly Filesystem $filesystem;
-
     private readonly Repository $config;
 
     public function __construct(
         private readonly Application $app,
+        private readonly Filesystem $filesystem,
         private readonly OutputStyle $output,
         private readonly RequirementRepository $requirementRepository
     ) {
-        $this->filesystem = $this->app->get('filesystem');
         $this->config = $this->app->get('config');
     }
 

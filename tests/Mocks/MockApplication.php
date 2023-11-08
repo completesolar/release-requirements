@@ -9,18 +9,17 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 trait MockApplication
 {
-    private function getApplicationMock(MockObject $filesystem = null): MockObject|Application
+    private function getApplicationMock(): MockObject|Application
     {
         $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
 
-        $app->expects($this->exactly(2))
+        $app->expects($this->once())
             ->method('get')
             ->willReturnMap([
                 ['config', $this->getConfigMock()],
-                ['filesystem', $filesystem ?? $this->getFilesystemMock()],
             ]);
 
         return $app;

@@ -7,6 +7,9 @@ namespace CompleteSolar\ReleaseRequirement\Console\Commands;
 use CompleteSolar\ReleaseRequirement\Stage;
 use Illuminate\Database\Console\Seeds\SeedCommand;
 
+/**
+ * @see \CompleteSolar\ReleaseRequirement\Tests\Console\Commands\SeedWithRequirementCommandTest
+ */
 class SeedWithRequirementCommand extends SeedCommand
 {
     use RunnerTrait;
@@ -26,7 +29,7 @@ class SeedWithRequirementCommand extends SeedCommand
         return $runner->run(Stage::AFTER_SEED);
     }
 
-    private function runSeeds(): int
+    protected function runSeeds(): int
     {
         return parent::handle();
     }

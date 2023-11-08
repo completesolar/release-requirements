@@ -8,7 +8,7 @@ use CompleteSolar\ReleaseRequirement\UseCases\RunRequirement;
 
 trait RunnerTrait
 {
-    private function getRequirementRunner(): RunRequirement
+    protected function getRequirementRunner(): RunRequirement
     {
         return app()->make(RunRequirement::class, ['output' => $this->output]);
     }

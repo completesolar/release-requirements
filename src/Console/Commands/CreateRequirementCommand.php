@@ -7,7 +7,10 @@ namespace CompleteSolar\ReleaseRequirement\Console\Commands;
 use CompleteSolar\ReleaseRequirement\UseCases\CreateRequirement;
 use Illuminate\Support\Str;
 
-class CreateRequirementsCommand extends AbstractRequirementCommand
+/**
+ * @see \CompleteSolar\ReleaseRequirement\Tests\Console\Commands\CreateRequirementCommandTest
+ */
+class CreateRequirementCommand extends AbstractRequirementCommand
 {
     protected $signature = 'make:requirement
                                 {stage : For which stage(before-migrate, before-seed, after_seed)}
@@ -30,7 +33,7 @@ class CreateRequirementsCommand extends AbstractRequirementCommand
             Str::snake($this->argument('name'))
         );
 
-        $this->components->info("Requirement($stage) $filePath is created successfully.");
+        $this->info("Requirement($stage) $filePath is created successfully.");
 
         return self::SUCCESS;
     }
