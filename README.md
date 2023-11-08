@@ -4,7 +4,7 @@
 
 This package generates requirements files that will be launched on laravel project deploy process within `artisan migrate` and `artisan dn:seed` commands, depends on requirement file stage.
 
-It supports Laravel 9+ and PHP 8.1+
+It supports Laravel =>9 and PHP =>8.1+
 
 - [Installation](#installation)
 - [Usage](#usage)
