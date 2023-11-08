@@ -15,7 +15,9 @@ use CompleteSolar\ReleaseRequirement\Tests\Mocks\MockFilesystem;
 use CompleteSolar\ReleaseRequirement\Tests\Mocks\MockRequirementRepository;
 use CompleteSolar\ReleaseRequirement\UseCases\RunRequirement;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\WithFaker;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\UseCases\RunRequirement
@@ -88,7 +90,7 @@ final class RunRequirementTest extends BaseTestCase
             ->method('addRequirementToRan')
             ->with($stage, $name);
 
-        $app = $this->getApplicationMock();
+        $app = $this->getApp();
 
         $app->expects($this->once())
             ->method('call')
@@ -112,7 +114,7 @@ final class RunRequirementTest extends BaseTestCase
             ->method('error')
             ->with("No $stage/$name requirement found!");
 
-        $useCase = new RunRequirement($this->getApplicationMock(), $this->getFilesystemMock(), $output, $this->getRepositoryMock());
+        $useCase = new RunRequirement($this->getApp(), $this->getFilesystemMock(), $output, $this->getRepositoryMock());
 
         $this->assertSame(Command::FAILURE, $useCase->run($stage, $name));
     }
@@ -135,7 +137,7 @@ final class RunRequirementTest extends BaseTestCase
             ->with("/$stage")
             ->willReturn(false);
 
-        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $this->getRepositoryMock());
+        $useCase = new RunRequirement($this->getApp(), $filesystem, $output, $this->getRepositoryMock());
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage));
     }
@@ -163,7 +165,7 @@ final class RunRequirementTest extends BaseTestCase
             ->with($path)
             ->willReturn(true);
 
-        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $this->getRepositoryMock());
+        $useCase = new RunRequirement($this->getApp(), $filesystem, $output, $this->getRepositoryMock());
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage));
     }
@@ -197,7 +199,7 @@ final class RunRequirementTest extends BaseTestCase
             ->with($stage, $path)
             ->willReturn([]);
 
-        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $repository);
+        $useCase = new RunRequirement($this->getApp(), $filesystem, $output, $repository);
 
         $this->assertSame(Command::SUCCESS, $useCase->run($stage));
     }
@@ -231,9 +233,22 @@ final class RunRequirementTest extends BaseTestCase
 
         $this->expectException(UndefinedRequirementTypeException::class);
 
-        $useCase = new RunRequirement($this->getApplicationMock(), $filesystem, $output, $repository);
+        $useCase = new RunRequirement($this->getApp(), $filesystem, $output, $repository);
 
         $useCase->run($stage);
+    }
+
+    private function getApp(): MockObject|Application
+    {
+        $app = $this->getApplicationMock();
+
+        $app->expects($this->once())
+            ->method('get')
+            ->willReturnMap([
+                ['config', $this->getConfigMock()],
+            ]);
+
+        return $app;
     }
 
     private function getRandomStage(): string

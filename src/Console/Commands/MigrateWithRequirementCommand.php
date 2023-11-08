@@ -29,9 +29,9 @@ class MigrateWithRequirementCommand extends MigrateCommand
         return $runner->run(Stage::AFTER_MIGRATE);
     }
 
+    /** @codeCoverageIgnore */
     protected function runMigrations(): int
     {
-        /** @codeCoverageIgnore */
         return parent::handle();
     }
 }

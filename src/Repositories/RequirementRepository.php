@@ -28,6 +28,7 @@ class RequirementRepository
             ->all();
     }
 
+    /** @codeCoverageIgnore */
     public function addRequirementToRan(string $stage, string $name): void
     {
         Requirement::create([

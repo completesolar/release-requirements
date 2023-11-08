@@ -29,9 +29,9 @@ class SeedWithRequirementCommand extends SeedCommand
         return $runner->run(Stage::AFTER_SEED);
     }
 
+    /** @codeCoverageIgnore */
     protected function runSeeds(): int
     {
-        /** @codeCoverageIgnore */
         return parent::handle();
     }
 }

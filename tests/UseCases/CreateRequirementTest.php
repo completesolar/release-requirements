@@ -19,7 +19,10 @@ final class CreateRequirementTest extends BaseTestCase
     use WithFaker;
 
     /**
-     * @covers ::run
+     * @covers ::__construct
+     * @covers ::getStub
+     * @covers ::stubPath
+     * @covers ::getFullFilePath
      */
     public function testRunSuccess(): void
     {

@@ -20,6 +20,8 @@ final class RequirementRepositoryTest extends BaseTestCase
 
     /**
      * @covers ::getPendingRequirements
+     * @covers ::getRanRequirements
+     * @covers ::getRequirementFiles
      */
     public function testGetPendingRequirementsForFile(): void
     {
@@ -43,6 +45,8 @@ final class RequirementRepositoryTest extends BaseTestCase
 
     /**
      * @covers ::getPendingRequirements
+     * @covers ::getRanRequirements
+     * @covers ::getRequirementFiles
      */
     public function testGetPendingRequirementsStage(): void
     {

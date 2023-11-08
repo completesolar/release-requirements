@@ -11,17 +11,8 @@ trait MockApplication
 {
     private function getApplicationMock(): MockObject|Application
     {
-        $app = $this->getMockBuilder(Application::class)
+        return $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-
-        $app->expects($this->once())
-            ->method('get')
-            ->willReturnMap([
-                ['config', $this->getConfigMock()],
-            ]);
-
-        return $app;
     }
 }

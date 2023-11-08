@@ -13,6 +13,9 @@ use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Console\Seeds\SeedCommand;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ReleaseRequirementProvider extends ServiceProvider
 {
     public function boot(): void
