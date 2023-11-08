@@ -9,6 +9,9 @@ use CompleteSolar\ReleaseRequirement\PathTrait;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \CompleteSolar\ReleaseRequirement\Tests\Repositories\RequirementRepositoryTest
+ */
 class RequirementRepository
 {
     use PathTrait;
@@ -37,6 +40,7 @@ class RequirementRepository
         ]);
     }
 
+    /** @codeCoverageIgnore */
     protected function getRanRequirements(string $stage): array
     {
         return Requirement::where('stage', $stage)->pluck('name')->toArray();

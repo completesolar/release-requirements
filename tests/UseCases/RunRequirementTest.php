@@ -47,6 +47,9 @@ final class RunRequirementTest extends BaseTestCase
     /**
      * @dataProvider successDataForRun
      * @covers ::run
+     * @covers ::__construct
+     * @covers ::setStage
+     * @covers ::runPending
      */
     public function testRunByName(?string $name): void
     {
@@ -103,6 +106,7 @@ final class RunRequirementTest extends BaseTestCase
 
     /**
      * @covers ::run
+     * @covers ::__construct
      */
     public function testFileWithNameDoesntExist(): void
     {

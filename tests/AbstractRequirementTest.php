@@ -7,6 +7,7 @@ namespace CompleteSolar\ReleaseRequirement\Tests;
 use CompleteSolar\ReleaseRequirement\AbstractRequirement;
 use CompleteSolar\ReleaseRequirement\Exceptions\NoRequirementRunMethodException;
 use CompleteSolar\ReleaseRequirement\Tests\Mocks\MockConsoleOutput;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\AbstractRequirement
@@ -17,15 +18,20 @@ class AbstractRequirementTest extends BaseTestCase
 
     /**
      * @covers ::__construct
+     * @covers \CompleteSolar\ReleaseRequirement\Exceptions\NoRequirementRunMethodException::__construct
      */
     public function testRunMethodDoesNotExists(): void
     {
+        $exception = null;
         try {
             new class ($this->getOutputMock()) extends AbstractRequirement {
             };
-        } catch (NoRequirementRunMethodException $exception) {
-            $this->assertInstanceOf(NoRequirementRunMethodException::class, $exception);
+        } catch (NoRequirementRunMethodException $e) {
+            $exception = $e;
         }
+
+        $this->assertInstanceOf(NoRequirementRunMethodException::class, $exception);
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $exception->getCode());
     }
 
     /**
@@ -39,6 +45,7 @@ class AbstractRequirementTest extends BaseTestCase
             }
         };
 
+        /** @noinspection PhpVoidFunctionResultUsedInspection */
         $this->assertNull($requirement->run());
     }
 }

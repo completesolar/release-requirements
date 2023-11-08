@@ -20,6 +20,7 @@ final class CreateRequirementTest extends BaseTestCase
 
     /**
      * @covers ::__construct
+     * @covers ::run
      * @covers ::getStub
      * @covers ::stubPath
      * @covers ::getFullFilePath

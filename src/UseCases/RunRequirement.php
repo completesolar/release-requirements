@@ -14,6 +14,9 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Command\Command;
 
+/**
+ * @see \CompleteSolar\ReleaseRequirement\Tests\UseCases\RunRequirementTest
+ */
 class RunRequirement
 {
     use PathTrait;
