@@ -23,6 +23,7 @@ class AbstractRequirementTest extends BaseTestCase
     public function testRunMethodDoesNotExists(): void
     {
         $exception = null;
+
         try {
             new class ($this->getOutputMock()) extends AbstractRequirement {
             };
