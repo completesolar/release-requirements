@@ -13,10 +13,11 @@ use Illuminate\Support\Str;
 class CreateRequirementCommand extends AbstractRequirementCommand
 {
     protected $signature = 'make:requirement
-                                {stage : For which stage(before-migrate, before-seed, after_seed)}
-                                {name : short name of requirement}';
+                                {stage : For which stage(before-migrate, after_migrate, before-seed, after_seed)}
+                                {name : short name of the requirement}';
 
-    protected $description = "Create release requirement for one of the stages: before_migrate, before_seed, after_seed";
+    protected $description = "Create a release requirement for one of the stages:
+                                before_migrate, after_migrate, before_seed, after_seed";
 
     public function handle(CreateRequirement $useCase): int
     {

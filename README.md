@@ -37,8 +37,8 @@ This package makes use of [Laravels package auto-discovery mechanism](https://me
 
 You can enable/disable auto-launcher for migration and seed command using config file conf/requirement.php:
 ```bash
-'path' => base_path(env('REQUIREMENT_PATH', 'requirements')),
-'enable' => env('REQUIREMENT_ENABLE', true),
+'path' => base_path(env('REQUIREMENTS_PATH', 'requirements')),
+'enabled' => env('REQUIREMENTS_ENABLED', true),
 ```
 
 ## License

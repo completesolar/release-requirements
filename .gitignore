@@ -5,3 +5,4 @@ build
 .phpunit.result.cache
 .php_cs.cache
 _ide_helper.php
+coverage.log

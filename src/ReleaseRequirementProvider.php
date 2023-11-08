@@ -36,7 +36,7 @@ class ReleaseRequirementProvider extends ServiceProvider
 
     public function register(): void
     {
-        if (!config('requirement.enable')) {
+        if (!config('requirement.enabled')) {
             return;
         }
 

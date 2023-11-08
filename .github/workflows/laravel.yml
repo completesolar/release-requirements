@@ -1,0 +1,66 @@
+name: Test PR
+
+on: pull_request
+
+jobs:
+  check-js:
+    runs-on: ubuntu-20.04
+
+    concurrency: # This ensures that only one job runs at a time for a branch
+      group: ${{ github.workflow }}-js-${{ github.ref_name }}
+      cancel-in-progress: true
+
+  check-php:
+    runs-on: ubuntu-20.04
+
+    concurrency: # This ensures that only one job runs at a time for a branch
+      group: ${{ github.workflow }}-php-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necessary to get latest history for checking code style
+
+      - name: Install PHP Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgnutls-openssl27 libgnutls30 software-properties-common
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: pcov
+          coverage: pcov
+          tools: composer:v2, pecl
+
+      - name: Install and Configure Composer
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.ACCESS_TOKEN }}"}}'
+        run: composer install --no-interaction
+
+      - name: Run php-cs-fixer
+        run: bash php_cs_fixer.sh github-actions
+
+      - name: Run phpunit with coverage
+        run: bash php_coverage.sh
+
+  notify-failure:
+    if: failure() # This ensures the job runs only if the previous job failed
+    runs-on: ubuntu-latest
+    needs: [ check-php] # Depends on all other jobs
+    steps:
+      - name: Slack Notification on Failure
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "pr_url": "${{ github.event.pull_request.html_url }}",
+              "branch_name": "${{ github.event.pull_request.head.ref }}",
+              "actor_username": "${{ github.triggering_actor }}",
+              "repo_name": "${{ github.repository }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
