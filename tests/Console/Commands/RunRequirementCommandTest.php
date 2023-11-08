@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace CompleteSolar\ReleaseRequirement\Tests\Console\Commands;
 
-use CompleteSolar\ReleaseRequirement\Console\Commands\CreateRequirementCommand;
 use CompleteSolar\ReleaseRequirement\Console\Commands\RunRequirementsCommand;
 use CompleteSolar\ReleaseRequirement\Stage;
 use CompleteSolar\ReleaseRequirement\Tests\BaseTestCase;
-use CompleteSolar\ReleaseRequirement\Tests\Mocks\MockCreateRequirement;
 use CompleteSolar\ReleaseRequirement\Tests\Mocks\MockRunRequirement;
 use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\Console\Command\Command;
@@ -16,7 +14,7 @@ use Symfony\Component\Console\Command\Command;
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\Console\Commands\RunRequirementsCommand
  */
-class RunRequirementCommandTest extends BaseTestCase
+final class RunRequirementCommandTest extends BaseTestCase
 {
     use MockRunRequirement;
     use WithFaker;

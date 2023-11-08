@@ -15,7 +15,7 @@ use Symfony\Component\Console\Command\Command;
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\Console\Commands\MigrateWithRequirementCommand
  */
-class MigrateWithRequirementCommandTest extends BaseTestCase
+final class MigrateWithRequirementCommandTest extends BaseTestCase
 {
     use MockRunRequirement;
 

@@ -7,7 +7,7 @@ namespace CompleteSolar\ReleaseRequirement\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\TestCase;
 
-class BaseTestCase extends TestCase
+abstract class BaseTestCase extends TestCase
 {
     protected function setUp(): void
     {

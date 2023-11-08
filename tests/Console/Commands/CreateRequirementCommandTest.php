@@ -14,7 +14,7 @@ use Symfony\Component\Console\Command\Command;
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\Console\Commands\CreateRequirementCommand
  */
-class CreateRequirementCommandTest extends BaseTestCase
+final class CreateRequirementCommandTest extends BaseTestCase
 {
     use MockCreateRequirement;
     use WithFaker;

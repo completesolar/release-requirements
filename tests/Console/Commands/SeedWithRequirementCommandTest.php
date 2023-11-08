@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CompleteSolar\ReleaseRequirement\Tests\Console\Commands;
 
-use CompleteSolar\ReleaseRequirement\Console\Commands\MigrateWithRequirementCommand;
 use CompleteSolar\ReleaseRequirement\Console\Commands\SeedWithRequirementCommand;
 use CompleteSolar\ReleaseRequirement\Stage;
 use CompleteSolar\ReleaseRequirement\Tests\BaseTestCase;
@@ -16,7 +15,7 @@ use Symfony\Component\Console\Command\Command;
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\Console\Commands\SeedWithRequirementCommand
  */
-class SeedWithRequirementCommandTest extends BaseTestCase
+final class SeedWithRequirementCommandTest extends BaseTestCase
 {
     use MockRunRequirement;
 

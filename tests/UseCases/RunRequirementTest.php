@@ -20,7 +20,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\UseCases\RunRequirement
  */
-class RunRequirementTest extends BaseTestCase
+final class RunRequirementTest extends BaseTestCase
 {
     use WithFaker;
     use MockApplication;

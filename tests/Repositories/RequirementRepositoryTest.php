@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 /**
  * @coversDefaultClass \CompleteSolar\ReleaseRequirement\Repositories\RequirementRepository
  */
-class RequirementRepositoryTest extends BaseTestCase
+final class RequirementRepositoryTest extends BaseTestCase
 {
     use WithFaker;
     use MockFilesystem;
