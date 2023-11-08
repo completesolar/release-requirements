@@ -3,12 +3,6 @@ name: Test PR
 on: pull_request
 
 jobs:
-  check-js:
-    runs-on: ubuntu-20.04
-
-    concurrency: # This ensures that only one job runs at a time for a branch
-      group: ${{ github.workflow }}-js-${{ github.ref_name }}
-      cancel-in-progress: true
 
   check-php:
     runs-on: ubuntu-20.04
