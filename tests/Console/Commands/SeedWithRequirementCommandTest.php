@@ -57,6 +57,7 @@ final class SeedWithRequirementCommandTest extends BaseTestCase
 
     /**
      * @covers ::handle
+     * @covers ::runSeeds
      */
     public function testSuccessOnAfterMigrateStage(): void
     {

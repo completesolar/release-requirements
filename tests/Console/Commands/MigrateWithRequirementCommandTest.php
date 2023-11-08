@@ -37,6 +37,7 @@ final class MigrateWithRequirementCommandTest extends BaseTestCase
 
     /**
      * @covers ::handle
+     * @covers ::runMigrations
      */
     public function testFailedOnMigrateStage(): void
     {
@@ -57,6 +58,7 @@ final class MigrateWithRequirementCommandTest extends BaseTestCase
 
     /**
      * @covers ::handle
+     * @covers ::runMigrations
      */
     public function testSuccessOnAfterMigrateStage(): void
     {

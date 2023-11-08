@@ -12,5 +12,9 @@
         <include>
             <directory suffix=".php">./src</directory>
         </include>
+        <exclude>
+            <directory>./src/migrations</directory>
+            <directory>./src/config</directory>
+        </exclude>
     </source>
 </phpunit>
