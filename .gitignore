@@ -1,7 +1,0 @@
-/vendor/
-.idea
-build
-/.phpunit.cache
-.phpunit.result.cache
-.php_cs.cache
-_ide_helper.php
