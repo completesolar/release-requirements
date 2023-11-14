@@ -34,7 +34,7 @@ This package makes use of [Laravels package auto-discovery mechanism](https://me
 ## Usage
 
 - `php artisan make:requirement {stage} {requirement_name}` - generate new requirement file for specified stage(before_migrate, after_migrate, before_seed, after_seed)
-- `php artisan requirement:run {stage} {?requirement_name}` - run requirements for specified stage. Requirement name can be passed as a second param to run only that requirement.
+- `php artisan requirement:run {stage} --name={?requirement_name}` - run requirements for specified stage. Requirement name can be passed as aт optional param(--name=) to run only that requirement.
 
 You can enable/disable auto-launcher for migration and seed command using config file conf/requirement.php:
 ```bash
