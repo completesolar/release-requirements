@@ -34,7 +34,7 @@ This package makes use of [Laravels package auto-discovery mechanism](https://me
 ## Usage
 
 - `php artisan make:requirement {stage} {requirement_name}` - generate new requirement file for specified stage(before_migrate, after_migrate, before_seed, after_seed)
-- `php artisan requirement:run {stage} --name={?requirement_name}` - run requirements for specified stage. Requirement name can be passed as aт optional param(--name=) to run only that requirement.
+- `php artisan requirement:run {stage} --name={?requirement_name}` - run requirements for specified stage. Requirement name can be passed as an optional param(--name=) to run only that requirement.
 
 You can enable/disable auto-launcher for migration and seed command using config file conf/requirement.php:
 ```bash
@@ -43,7 +43,7 @@ You can enable/disable auto-launcher for migration and seed command using config
 ```
 
 ## Example
-For example, we have a CI deployment process that will run the php `artisanmigrate` and `artisan db:seed` commands one after the other. We have a script that only needs to be run once before the artisan db:seed command, but that means we'll have to change the deployment process this time.
+For example, we have a CI deployment process that will run the php `artisan migrate` and `artisan db:seed` commands one after another. We have a script that should be run once before the artisan db:seed command, but that means we'll have to change the deployment process this time.
 To solve this problem, we can create a new requirement:
 
 - `php artisan make:requirement before_seed some_requirement_name` - by default, all new commands will be stored in the `project_path/requirements/` folder.
